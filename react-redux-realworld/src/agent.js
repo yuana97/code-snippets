@@ -1,4 +1,3 @@
-'use strict';
 // send requests to endpoints
 
 import _superagent from 'superagent';
@@ -53,9 +52,18 @@ const Articles = {
   // http request articles by author
   byAuthor: (author, page) =>
     requests.get(`/articles?author=${encodeURIComponent(author)}&limit=5`),
+  byTag: (tag, page) =>
+    requests.get(`/articles?tag=${encodeURIComponent(tag)}&limit=10`),
   favoritedBy: (author, page) =>
-    requests.get(`/articles?favorited=${encodeURIComponent(author)}&limit=5`)
+    requests.get(`/articles?favorited=${encodeURIComponent(author)}&limit=5`),
+  // promise resolving to get /articles/feed?limit=10 endpoint
+  feed: () =>
+    requests.get('/articles/feed?limit=10')
 };
+
+const Tags = {
+  getAll: () => requests.get('/tags')
+}
 
 const Profile = {
   // post to follow user
@@ -93,6 +101,7 @@ export default {
   Auth,
   Comments,
   Profile,
+  Tags,
   // sets local token to provided token
   setToken: _token => {
     token = _token;

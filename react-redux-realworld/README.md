@@ -17,4 +17,5 @@ Paginate the results for article lists.
 1. Create onSetPage prop to pass to ArticleList: do this in each component which uses ArticleList.
   1. MainView: Add SET_PAGE action with pagenumber and data to props. Pass it to articleList. https://pastebin.com/g1cuyCyP
   1. Profile: Ditto, but the data comes from articles from the profile's user. https://pastebin.com/EN1nA39A
-  1. ProfileFavorites < Profile: Override the onSetPage function from profile to get favorited articles.
+  1. ProfileFavorites: Override the onSetPage function from profile to get favorited articles. https://pastebin.com/M8L3eVvH
+1. update articleList reducer: page load actions should set currentPage attribute to 0. SET_PAGE should update article data and set the current page. https://pastebin.com/yFWf4JyQ

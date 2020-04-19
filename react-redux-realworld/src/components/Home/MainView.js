@@ -49,7 +49,7 @@ const GlobalFeedTab = (props) => {
 };
 
 // display tag name in tab
-const TagFilterTab = props => {
+const TagFilterTab = (props) => {
   if (!props.tag) {
     return null;
   }
@@ -61,7 +61,7 @@ const TagFilterTab = props => {
       </a>
     </li>
   );
-}
+};
 
 const mapStateToProps = (state) => ({
   ...state.articleList,
@@ -70,11 +70,18 @@ const mapStateToProps = (state) => ({
 
 // dispatch tab change action w/ tab type, promise with articles
 const mapDispatchToProps = (dispatch) => ({
+  onSetPage: (tab, p) =>
+    dispatch({
+      type: 'SET_PAGE',
+      page: p,
+      payload: tab === 'feed' ? agent.Articles.feed(p) : agent.Articles.all(p),
+    }),
   onTabClick: (tab, payload) => dispatch({type: 'CHANGE_TAB', tab, payload}),
 });
 
 const MainView = (props) => {
   console.log('mainviewprops', props);
+  const onSetPage = (page) => props.onSetPage(props.tab, page);
   return (
     <div className="col-md-9">
       <div className="feed-toggle">
@@ -90,7 +97,12 @@ const MainView = (props) => {
         </ul>
       </div>
 
-      <ArticleList articles={props.articles} />
+      <ArticleList
+        articles={props.articles}
+        articlesCount={props.articlesCount}
+        currentpage={props.currentPage}
+        onSetPage={onSetPage}
+      />
     </div>
   );
 };

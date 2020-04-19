@@ -1,47 +1,58 @@
-import { Profile, mapStateToProps } from './Profile';
+import {Profile, mapStateToProps} from './Profile';
 import React from 'react';
-import { Link } from 'react-router';
+import {Link} from 'react-router';
 import agent from '../agent';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 
 // follow/unfollow, load/unload actions
-const mapDispatchToProps = dispatch => ({
-  onFollow: username => dispatch({
-    type: 'FOLLOW_USER',
-    payload: agent.Profile.follow(username)
-  }),
+const mapDispatchToProps = (dispatch) => ({
+  onFollow: (username) =>
+    dispatch({
+      type: 'FOLLOW_USER',
+      payload: agent.Profile.follow(username),
+    }),
   onLoad: (payload) =>
-    dispatch({ type: 'PROFILE_FAVORITES_PAGE_LOADED', payload }),
-  onUnfollow: username => dispatch({
-    type: 'UNFOLLOW_USER',
-    payload: agent.Profile.unfollow(username)
-  }),
-  onUnload: () =>
-    dispatch({ type: 'PROFILE_FAVORITES_PAGE_UNLOADED' })
+    dispatch({type: 'PROFILE_FAVORITES_PAGE_LOADED', payload}),
+  onSetPage: (page, payload) => dispatch({type: 'SET_PAGE', page, payload}),
+  onUnfollow: (username) =>
+    dispatch({
+      type: 'UNFOLLOW_USER',
+      payload: agent.Profile.unfollow(username),
+    }),
+  onUnload: () => dispatch({type: 'PROFILE_FAVORITES_PAGE_UNLOADED'}),
 });
 
 class ProfileFavorites extends Profile {
   // mount => dispatch promises for profile, articles => hit middleware, parsed for body
   // => hit reducer, data put into state => connect call, data put to props => render
   componentWillMount() {
-    this.props.onLoad(Promise.all([
-      agent.Profile.get(this.props.params.username),
-      agent.Articles.favoritedBy(this.props.params.username)
-    ]));
+    this.props.onLoad(
+      Promise.all([
+        agent.Profile.get(this.props.params.username),
+        agent.Articles.favoritedBy(this.props.params.username),
+      ])
+    );
   }
 
   componentWillUnmount() {
     this.props.onUnload();
   }
 
+  // override to get data from favorites list
+  onSetPage(page) {
+    const promise = agent.Articles.favoritedBy(
+      this.props.profile.username,
+      page
+    );
+    this.props.onSetPage(page, promise);
+  }
+
   // override rendertabs: change active tab
   renderTabs() {
-    return(
+    return (
       <ul className="nav nav-pills outline-active">
         <li className="nav-item">
-          <Link
-            className="nav-link"
-            to={`@${this.props.profile.username}`}>
+          <Link className="nav-link" to={`@${this.props.profile.username}`}>
             My Articles
           </Link>
         </li>
@@ -49,7 +60,8 @@ class ProfileFavorites extends Profile {
         <li className="nav-item">
           <Link
             className="nav-link active"
-            to={`@${this.props.profile.username}/favorites`}>
+            to={`@${this.props.profile.username}/favorites`}
+          >
             Favorited Articles
           </Link>
         </li>

@@ -1,9 +1,8 @@
-'use strict';
-
-import React, { Component } from 'react';
+import React from 'react';
 import ArticlePreview from './ArticlePreview';
+import ListPagination from './ListPagination';
 
-// loading/empty page from props, otherwise map articles to previous
+// loading/empty page from props, otherwise map articles to previews
 const ArticleList = props => {
   if (!props.articles) {
     return (
@@ -28,8 +27,13 @@ const ArticleList = props => {
           );
         })
       }
+
+      <ListPagination
+        articlesCount={props.articlesCount}
+        currentPage={props.currentPage}
+        onSetPage={props.onSetPage} />
     </div>
   );
-}
+};
 
 export default ArticleList;

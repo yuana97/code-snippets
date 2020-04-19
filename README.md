@@ -1,7 +1,12 @@
-# Conduit AngularJS Starter
+More resources
 
-1. Clone repo
-2. `npm install`
-3. `gulp`
+### Projects:
+- Build Your Own X: https://github.com/danistefanovic/build-your-own-x
+- Project Based Learning: https://github.com/tuvtran/project-based-learning
+- 9 Front End Projects: https://medium.com/better-programming/9-projects-you-can-do-to-become-a-front-end-master-in-2020-97577110cca1
 
-Make sure you have gulp installed globally (`npm install -g gulp`)
+
+### Guides:
+- Webpack: https://webpack.js.org/guides/getting-started/
+- Docker: https://docker-curriculum.com/#introduction
+- Flask: https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world

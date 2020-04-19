@@ -5,21 +5,22 @@ import agent from '../agent';
 import {connect} from 'react-redux';
 
 // articles, user, profile
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   ...state.articleList,
   currentUser: state.common.currentUser,
   profile: state.profile,
 });
 
 // dispatch follow, unfollow, load, unload actions
-const mapDispatchToProps = dispatch => ({
-  onFollow: username =>
+const mapDispatchToProps = (dispatch) => ({
+  onFollow: (username) =>
     dispatch({
       type: 'FOLLOW_USER',
       payload: agent.Profile.follow(username),
     }),
-  onLoad: payload => dispatch({type: 'PROFILE_PAGE_LOADED', payload}),
-  onUnfollow: username =>
+  onLoad: (payload) => dispatch({type: 'PROFILE_PAGE_LOADED', payload}),
+  onSetPage: (page, payload) => dispatch({type: 'SET_PAGE', page, payload}),
+  onUnfollow: (username) =>
     dispatch({
       type: 'UNFOLLOW_USER',
       payload: agent.Profile.unfollow(username),
@@ -28,7 +29,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 // edit profile button
-const EditProfileSettings = props => {
+const EditProfileSettings = (props) => {
   if (props.isUser) {
     return (
       <Link
@@ -43,7 +44,7 @@ const EditProfileSettings = props => {
 };
 
 // user => followbutton
-const FollowUserButton = props => {
+const FollowUserButton = (props) => {
   if (props.isUser) {
     return null;
   }
@@ -56,7 +57,7 @@ const FollowUserButton = props => {
     classes += ' btn-outline-secondary';
   }
   // click => follow/unfollow actions
-  const handleClick = ev => {
+  const handleClick = (ev) => {
     ev.preventDefault();
     if (props.user.following) {
       props.unfollow(props.user.username);
@@ -89,6 +90,11 @@ class Profile extends Component {
   // clear state on unmount
   componentWillUnmount() {
     this.props.onUnload();
+  }
+
+  onSetPage(page) {
+    const promise = agent.Articles.byAuthor(this.props.profile.username, page);
+    this.props.onSetPage(page, promise);
   }
 
   // render article/favorites tabs
@@ -126,6 +132,8 @@ class Profile extends Component {
       this.props.currentUser &&
       this.props.profile.username === this.props.currentUser.username;
 
+    const onSetPage = (page) => this.onSetPage(page);
+
     return (
       <div className="profile-page">
         <div className="user-info">
@@ -153,7 +161,12 @@ class Profile extends Component {
             <div className="col-xs-12 col-md-10 offset-md-1">
               <div className="articles-toggle">{this.renderTabs()}</div>
 
-              <ArticleList articles={this.props.articles} />
+              <ArticleList
+                articles={this.props.articles}
+                articlesCount={this.props.articlesCount}
+                currentPage={this.props.currentPage}
+                onSetPage={onSetPage}
+              />
             </div>
           </div>
         </div>
@@ -164,3 +177,4 @@ class Profile extends Component {
 
 // connect to redux
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export { Profile as Profile, mapStateToProps as mapStateToProps };

@@ -44,21 +44,24 @@ const requests = {
       .then(responseBody),
 };
 
+// get count*page results
+const limit = (count, p) => `limit=${count}&offset=${p ? p * count : 0}`;
+const encode = encodeURIComponent;
 // methods
 const Articles = {
   del: slug => requests.del(`/articles/${slug}`),
-  all: () => requests.get('/articles?limit=10'),
+  all: page => requests.get(`/articles?${limit(10, page)}`),
   get: slug => requests.get(`/articles/${slug}`),
   // http request articles by author
   byAuthor: (author, page) =>
-    requests.get(`/articles?author=${encodeURIComponent(author)}&limit=5`),
+    requests.get(`/articles?author=${encode(author)}&${limit(10, page)}`),
   byTag: (tag, page) =>
-    requests.get(`/articles?tag=${encodeURIComponent(tag)}&limit=10`),
+    requests.get(`/articles?tag=${encode(tag)}&${limit(10, page)}`),
   favoritedBy: (author, page) =>
-    requests.get(`/articles?favorited=${encodeURIComponent(author)}&limit=5`),
+    requests.get(`/articles?favorited=${encode(author)}&${limit(10, page)}`),
   // promise resolving to get /articles/feed?limit=10 endpoint
-  feed: () =>
-    requests.get('/articles/feed?limit=10')
+  feed: page =>
+    requests.get(`/articles/feed?${limit(10, page)}`)
 };
 
 const Tags = {

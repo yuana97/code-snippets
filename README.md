@@ -1,5 +1,9 @@
-More resources
+## Description
 
+Deployable, commented projects with detailed coding guides in each folder. Triple your income in six months by creating
+these projects.
+
+## More Resources
 ### Projects:
 - Build Your Own X: https://github.com/danistefanovic/build-your-own-x
 - Project Based Learning: https://github.com/tuvtran/project-based-learning

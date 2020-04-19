@@ -44,7 +44,7 @@ const requests = {
       .then(responseBody),
 };
 
-// get count*page results
+// get results for the desired page.
 const limit = (count, p) => `limit=${count}&offset=${p ? p * count : 0}`;
 const encode = encodeURIComponent;
 // methods

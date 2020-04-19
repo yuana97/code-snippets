@@ -8,6 +8,7 @@ The frontend for a social blogging app. See the working website here: https:/
 1. [Add pagination](#pagination)
 
 ## Add pagination <a name="pagination"></a>
+Image: https://drive.google.com/open?id=1Lxc6qtuu9I_vMk_sDUORnjqrBZyEZc6G
 Buy the course: https://thinkster.io/tutorials/react-redux-pagination
 
 Paginate the results for article lists.
@@ -19,3 +20,5 @@ Paginate the results for article lists.
     2. Profile: Ditto, but the data comes from articles from the profile's user. https://pastebin.com/EN1nA39A
     3. ProfileFavorites: Override the onSetPage function from profile to get favorited articles. https://pastebin.com/M8L3eVvH
 1. update articleList reducer: page load actions should set currentPage attribute to 0. SET_PAGE should update article data and set the current page. https://pastebin.com/yFWf4JyQ
+
+Summary: Click page => fire onSetPage from ListPagination's parent => dispatch SET_PAGE with page number and data => load new data to state, redux loads data into component => render new list of articles.

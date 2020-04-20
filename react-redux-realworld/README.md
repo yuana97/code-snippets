@@ -4,6 +4,8 @@ https://github.com/gothinkster/react-redux-realworld-example-app
 
 The frontend for a social blogging app. See the working website here: https://demo.productionready.io/#/
 
+
+
 # Table of contents
 1. [Add pagination](#pagination)
 

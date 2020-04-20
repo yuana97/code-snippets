@@ -1,6 +1,6 @@
 ## Description
 
-Deployable, commented projects with detailed coding guides in each folder. Triple your income in six months by creating
+Deployable, commented projects with detailed coding guides in each folder. Triple your output in six months by creating
 these projects.
 
 ## More Resources

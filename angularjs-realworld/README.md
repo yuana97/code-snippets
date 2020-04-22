@@ -6,7 +6,6 @@ Build the frontend for https://demo.productionready.io/#/ in AngularJS.
 1. [Build](#build)
 
 ## Setup <a name="setup"></a>
-Image: https://drive.google.com/open?id=1DAwYFnPB0GObVBHoQG4spdj-iSZjGOln If you've setup correctly you should be able to create a main.cpp file in VS Code with these #include's and not have any red lines under them.
 
 1. Install VS Code: https://code.visualstudio.com/
 1. Install Node: https://nodejs.org/en/download/
@@ -35,4 +34,4 @@ Final Result: gulpfile.js with code: https://pastebin.com/cg0uX3BD
 1. Write 'build' task to create a distribution-ready build of our app. https://pastebin.com/5VSCEHEn
     1. This is invoked by 'gulp build'
 
-After writing the above code, go to the integrated terminal in VS Code. Run 'gulp'. You should see the website appear in the browser at localhost:4000.
+After writing the above code, open up the VS Code terminal. Run 'gulp'. You should see the website appear in the browser at localhost:4000.

@@ -16,7 +16,7 @@ Image: https://drive.google.com/open?id=1DAwYFnPB0GObVBHoQG4spdj-iSZjGOln If you
 1. npm install && npm i -g gulp-cli (install dependencies and gulp command line interface)
 1. delete gulpfile.js (we will re-write it).
 
-## Build <a name="build></a>
+## Build <a name="build"></a>
 Image: https://drive.google.com/open?id=1VSyz0_qExC5RzdHF2GASsqZ7Rkq1ASum After this step, you should be able to run 'gulp' in the terminal and see text like in the image, as well as your website appearing on http://localhost:4000/#!/ .
 
 Final Result: gulpfile.js with code: https://pastebin.com/cg0uX3BD

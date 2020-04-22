@@ -8,7 +8,10 @@ I've decomposed the project into several main step. Within each main step there 
 1. [Create a window](#window)
 
 ## Setup (MacOS) <a name="setup"></a>
+Image: https://drive.google.com/open?id=1DAwYFnPB0GObVBHoQG4spdj-iSZjGOln If you've setup correctly you should be able to create a main.cpp file in VS Code with these #include's and not have any red lines under them.
+
 Source: https://www.youtube.com/watch?v=Tz0dq2krCW8
+
 If you're on Windows, set up Windows Subsystem For Linux https://www.windowscentral.com/install-windows-subsystem-linux-windows-10 and run the commands in your linux subsystem.
 
 1. Setup glew and glfw:

@@ -41,7 +41,7 @@ Image: https://drive.google.com/file/d/1fQc2i8kTTTIiStln4CAjZwJfjslnT1tg/view?us
 1. src/components/Home/ArticlePreview.js : Create ArticlePreview component to display the article data https://pastebin.com/Vk6KZfG2
     1. src/components/Home/ArticleList.js : map the articledata to ArticlePreviews instead of plain text https://pastebin.com/FCnR6b7x
 
-## Add pagination <a name="pagination"></a>
+## Add pagination (this is one of the last steps, I haven't written the intermediate guides yet) <a name="pagination"></a>
 Image: https://drive.google.com/open?id=1Lxc6qtuu9I_vMk_sDUORnjqrBZyEZc6G
 Buy the course: https://thinkster.io/tutorials/react-redux-pagination
 

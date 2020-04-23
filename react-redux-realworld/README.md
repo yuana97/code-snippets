@@ -28,7 +28,7 @@ The frontend for a social blogging app. See the working website here: https:/
     1. src/components/Home/Banner.js : Create a banner for the app logo https://pastebin.com/pd428apB
     2. src/components/Home/MainView.js : Create container with tab at the top, pass articles prop to ArticleList https://pastebin.com/Z4PQQHja
     3. src/components/Home/ArticleList.js : Render list of articles https://pastebin.com/U0XWn3nb
-1. The website should appear at localhost:3000 looking like this: https://drive.google.com/open?id=1SX6r-2KF7w5YIC25B4lZ7HT9zyvww1qT
+1. Do 'npm install && npm start' in the command line. The website should appear at localhost:3000 looking like this: https://drive.google.com/open?id=1SX6r-2KF7w5YIC25B4lZ7HT9zyvww1qT
 
 ## Set up HTTP client and get articles <a name="http"></a>
 Image: https://drive.google.com/file/d/1fQc2i8kTTTIiStln4CAjZwJfjslnT1tg/view?usp=sharing
@@ -37,7 +37,7 @@ Image: https://drive.google.com/file/d/1fQc2i8kTTTIiStln4CAjZwJfjslnT1tg/view?us
     1. components/Home/index.js : get Home to fire Articles.all() upon load https://pastebin.com/RZ4a8teg
 1. src/middleware.js : create Redux middleware to catch promises and put their payloads into Redux https://pastebin.com/3KwEgVCW
     1. src/index.js : add promise middleware to the store, and update reducer to put article data into the store https://pastebin.com/edit/9s65yMqe .
-    2. At this point you should load up your website and use Chrome Inspector to inspect the network calls and look at the shape of the article data. This will tell us how to create an ArticlePreview component to display some of this data
+    2. At this point you should load up your website and use Chrome Inspector to inspect the network calls. Page load will fire an HTTP request for a list of articles. You should be able to see this request and look at the data it returns. This will tell us how to create an ArticlePreview component to display some of this data
 1. src/components/Home/ArticlePreview.js : Create ArticlePreview component to display the article data https://pastebin.com/Vk6KZfG2
     1. src/components/Home/ArticleList.js : map the articledata to ArticlePreviews instead of plain text https://pastebin.com/FCnR6b7x
 

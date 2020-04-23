@@ -10,6 +10,7 @@ Build the frontend for https://demo.productionready.io/#/ in AngularJS.
 1. Install VS Code: https://code.visualstudio.com/
 1. Install Node: https://nodejs.org/en/download/
 1. Install Git: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+1. Github account https://github.com/ with attached ssh key https://help.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh
 1. git clone -b 00-seed git@github.com:gothinkster/angularjs-realworld-example-app.git
 1. open angularjs-realworld-example-app in VS Code and open up the VS Code terminal.
 1. npm install && npm i -g gulp-cli (install dependencies and gulp command line interface)

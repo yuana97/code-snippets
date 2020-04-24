@@ -9,7 +9,8 @@ Deployable, commented projects with detailed coding guides in each folder. Tripl
 - 9 Front End Projects: https://medium.com/better-programming/9-projects-you-can-do-to-become-a-front-end-master-in-2020-97577110cca1
 
 
-### Guides:
+### Technology:
 - Webpack: https://webpack.js.org/guides/getting-started/
 - Docker: https://docker-curriculum.com/#introduction
 - Flask: https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
+- Serverless: https://serverless-stack.com/

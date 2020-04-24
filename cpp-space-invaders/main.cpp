@@ -2,6 +2,8 @@
 #include <cstdio>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <cstdint>
+#include <stdint.h>
 
 // given an error, put it into the error buffer
 #define GL_ERROR_CASE(glerror) \
@@ -45,9 +47,36 @@ void error_callback(int error, const char *description)
   fprintf(stderr, "Error: %s\n", description);
 }
 
+// render with a buffer representing the pixels on the screen.
+// it has a width, height, and rgb color represented by 24 bits of data
+struct Buffer
+{
+  size_t width, height;
+  uint32_t* data;
+};
+
+// map rgb triple to 32 bit block (r is encoded by the first 8 bits, g is encoded by
+// the next 8 bits, b is encoded by the next 8 bits, last 8 bits aren't used).
+uint32_t rgb_to_uint32(uint8_t r, uint8_t g, uint8_t b)
+{
+  return (r << 24) | (g << 16) | (b << 8) | 255;
+}
+
+// set each pixel of the given buffer to the given color
+void buffer_clear(Buffer* buffer, uint32_t color)
+{
+  for(size_t i = 0; i < buffer->width * buffer->height; ++i)
+  {
+    buffer->data[i] = color;
+  }
+}
+
 // play the game
 int main(int argc, char *argv[])
 {
+  const size_t buffer_width = 224;
+  const size_t buffer_height = 256;
+  const uint32_t clear_color = rgb_to_uint32(0, 128, 0);
   // on error, print errors to console
   glfwSetErrorCallback(error_callback);
 
@@ -92,6 +121,14 @@ int main(int argc, char *argv[])
 
   // set the buffer clear color to red (rgba code)
   glClearColor(1.0, 0.0, 0.0, 1.0);
+
+  // create graphics buffer
+  Buffer buffer;
+  buffer.width = buffer_width;
+  buffer.height = buffer_height;
+  buffer.data = new uint32_t[buffer.width * buffer.height];
+  // set the buffer color to white
+  buffer_clear(&buffer, clear_color);
   // persist the window until user closes it
   while (!glfwWindowShouldClose(window))
   {

@@ -1,23 +1,36 @@
-Realworld React-Redux: Code Guides
+Gitlet Coding Guide
 
-Buy the course: https://thinkster.io/tutorials/build-a-real-world-react-redux-application
+Distributed under the MIT License. Credit to Mary Rose Cook: http://gitlet.maryrosecook.com/docs/gitlet.html
 
-https://github.com/gothinkster/react-redux-realworld-example-app
-
-The frontend for a social blogging app. See the working website here: https://demo.productionready.io/#/
-
+Write a clone (no pun intended) of Git in Node.js
 
 # Table of contents
-1. [Prerequisites](#prereqs)
+0. [Prerequisites](#prereqs)
 1. [Create homepage with article list](#articlelist)
-1. [Setup HTTP client and get articles](#http)
-1. [Integrate React Router](#router)
-1. [Add pagination](#pagination)
+2. [Get articles and setup routing](#http)
+10. [Add pagination](#pagination)
 
 ## Prerequisites <a name="prereqs"></a>
-- Node https://nodejs.org/en/download/
-- Git https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
-- Github account https://github.com/ with attached ssh key https://help.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh
+**Setup the code**
+1. Node https://nodejs.org/en/download/
+1. mkdir gitlet && cd gitlet
+1. npm init (press enter thru all the commands)
+1. touch gitlet.js
+
+**Sample gitlet workflow**
+https://drive.google.com/open?id=1AXL2QM5gJL9QkCkWdQcmFU21PYOGV_qR
+1. npm install -g gitlet (install gitlet npm package)
+**gitlet init**
+1. mkdir a && cd a
+1. gitlet init (make a a git repository)
+**gitlet commit**
+1. echo first > number.txt (create a file)
+1. gitlet add number.txt
+1. gitlet commit -m "first" (stage and commit a file)
+**gitlet clone**
+1. cd ..
+1. gitlet clone a b (clone the git repo a to a folder b)
+**
 
 ## Create homepage with article list <a name="articlelist"></a>
 1. git clone -b 00 git@github.com:gothinkster/react-redux-realworld-example-app.git
@@ -41,17 +54,6 @@ Image: https://drive.google.com/file/d/1fQc2i8kTTTIiStln4CAjZwJfjslnT1tg/view?us
     2. At this point you should load up your website and use Chrome Inspector to inspect the network calls. Page load will fire an HTTP request for a list of articles. You should be able to see this request and look at the data it returns. This will tell us how to create an ArticlePreview component to display some of this data
 1. src/components/Home/ArticlePreview.js : Create ArticlePreview component to display the article data https://pastebin.com/Vk6KZfG2
     1. src/components/Home/ArticleList.js : map the articledata to ArticlePreviews instead of plain text https://pastebin.com/FCnR6b7x
-
-## Integrate with React Router <a name="router"></a>
-1. Refactor store out of index.js
-    1. src/store.js : pull store out of index.js and export it from store.js https://pastebin.com/L7wBaPTN
-    2. src/index.js : clean up code and import store https://pastebin.com/MPaLjX45
-1. src/index.js : Add routes https://pastebin.com/k4sgC4Dz
-    1. src/components/App.js : Now that Home is a child of App from react-router, replace it in App.js with this.props.children https://pastebin.com/Ns7wVQxY
-1. src/components/Login.js : scaffold the login component https://pastebin.com/2n24eU4A
-1. src/components/Header.js : add navigation to the header https://pastebin.com/BVnnwW6s
-
-Images: https://drive.google.com/open?id=1RjjpJmB4VtI724B4EXczkijeqG_M2UQT https://drive.google.com/open?id=15szUk3pYFjn07-uJyBz3PvsniMuybm3Y
 
 ## Add pagination (this is one of the last steps, I haven't written the intermediate guides yet) <a name="pagination"></a>
 Image: https://drive.google.com/open?id=1Lxc6qtuu9I_vMk_sDUORnjqrBZyEZc6G

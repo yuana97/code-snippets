@@ -12,6 +12,7 @@ The frontend for a social blogging app. See the working website here: https:/
 1. [Create homepage with article list](#articlelist)
 1. [Setup HTTP client and get articles](#http)
 1. [Integrate React Router](#router)
+1. [Hook up authentication form](#auth)
 1. [Add pagination](#pagination)
 
 ## Prerequisites <a name="prereqs"></a>
@@ -52,6 +53,46 @@ Image: https://drive.google.com/file/d/1fQc2i8kTTTIiStln4CAjZwJfjslnT1tg/view?us
 1. src/components/Header.js : add navigation to the header https://pastebin.com/BVnnwW6s
 
 Images: https://drive.google.com/open?id=1RjjpJmB4VtI724B4EXczkijeqG_M2UQT https://drive.google.com/open?id=15szUk3pYFjn07-uJyBz3PvsniMuybm3Y
+
+## Hook up authentication form <a name="auth"></a>
+
+**Cleanup**
+
+1. Refactor reducers: separate them to child reducers in different files.
+    1. src/reducers/home.js https://pastebin.com/x1sVmczq
+    2. src/reducers/common.js https://pastebin.com/DCLxjuLb
+    3. src/reducers/auth.js https://pastebin.com/yTufK50U
+    4. src/store.js : import child reducers and combine them into the root reducer https://pastebin.com/KyXkBQ8F
+1. update state selectors to match
+    1. src/components/Home/index.js https://pastebin.com/s4nPVVVz
+    2. src/components/Home/MainView.js https://pastebin.com/JJuGSCEs
+
+**Hook up the form**
+
+1. src/agent.js : Add login method to HTTP client https://pastebin.com/rTgrCUtY
+1. src/components/Login.js : add actions and event handlers to keep track of the form inputs and fire a login request on submit https://pastebin.com/c39yLhGS
+    1. Add state and actions to Login https://pastebin.com/5rzgYVYU
+    2. Add event handlers to fire the actions https://pastebin.com/NFkxxWPw
+    3. Update render function: extract form inputs from props, attach event handlers to form elements,pass errors to ListErrors component. In addition remember to connect Login with Redux. https://pastebin.com/VwYkHPsa
+    4. At this point you want to collect some data on what the form errors look like: comment out ListErrors from Login.js so the app compiles. Then go to the website's login page and type in email=test, password=test and press submit. You should be able to inspect the network calls and see what the error response looks like.
+1. src/components/ListErrors.js : create ListErrors component to display form errors https://pastebin.com/cewWcxDD
+1. src/reducers/auth.js : add handlers for LOGIN, UPDATE_FIELD_AUTH, and ASYNC_START (loading) actions. https://pastebin.com/i7TtaCVc
+    1. src/middleware.js : Add ASYNC_START dispatch to promise middleware to https://pastebin.com/aUYt9rq5
+    2. At this point, make an account on https://demo.productionready.io/#/ and login on your localhost:3000 website. If you inspect the network calls, you should see the login response contains a user object https://github.com/gothinkster/realworld/tree/master/api#users-for-authentication
+
+**Handle login data**
+
+1. src/reducers/common.js : update common reducer to keep track of logged in status, encoded by an authentication token and user object https://pastebin.com/adbYMaX7
+1. src/components/App.js : handle redirects from anywhere in the site: get redirectTo from state and redirect user if necessary https://pastebin.com/KcBeAUxR
+1. src/middleware.js : We want to persist the user's loggedin status even if they close the page, and we want to clear the user's status when they log out. To do this we add some middleware to set the jwt (json web token) in window.localStorage and clear it on logout. https://pastebin.com/ywb0sDHD
+    1. src/store.js : apply this middleware to the store https://pastebin.com/3ayAUnPG
+    2. src/components/App.js : we want to log in the user when they open the page after closing it. To do this we extract the token from localStorage and pass it to the agent as well as to Redux. https://pastebin.com/TnTBfJkL
+    3. src/agent.js : keep track of token, and attach it to all requests. Add Auth.current() method for getting the data for the current user, and setToken method. https://pastebin.com/L7FVWhyK
+
+**Display login status**
+
+1. src/components/Header.js : Add separate LoggedInView and LoggedOutView which we conditionally render based on login status https://pastebin.com/ENQF8aCA
+1. src/components/App.js : pass currentUser from App to Header https://pastebin.com/fDQKJ97E
 
 ## Add pagination (this is one of the last steps, I haven't written the intermediate guides yet) <a name="pagination"></a>
 Image: https://drive.google.com/open?id=1Lxc6qtuu9I_vMk_sDUORnjqrBZyEZc6G

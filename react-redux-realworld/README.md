@@ -13,6 +13,7 @@ The frontend for a social blogging app. See the working website here: https:/
 1. [Setup HTTP client and get articles](#http)
 1. [Integrate React Router](#router)
 1. [Hook up authentication form](#auth)
+1. [Build registration and settings forms](#forms)
 1. [Add pagination](#pagination)
 
 ## Prerequisites <a name="prereqs"></a>
@@ -93,6 +94,19 @@ Images: https://drive.google.com/open?id=1RjjpJmB4VtI724B4EXczkijeqG_M2UQT https
 
 1. src/components/Header.js : Add separate LoggedInView and LoggedOutView which we conditionally render based on login status https://pastebin.com/ENQF8aCA
 1. src/components/App.js : pass currentUser from App to Header https://pastebin.com/fDQKJ97E
+
+## Build registration and authentication forms <a name="forms"></a>
+
+**Registration View**
+1. src/agent.js: add register function to agent.Auth https://pastebin.com/v5nZ3UFE
+1. src/reducers/auth.js: add REGISTER case to auth reducer to handle errors https://pastebin.com/3aKLv0uU
+1. src/reducers/common.js: add REGISTER case to common reducer to grab user information https://pastebin.com/pNqGGVPU
+1. src/components/Register.js: build out the Register component
+    1. extract auth data with mapStateToProps https://pastebin.com/rAFAPm64
+    2. add form update/submit actions with mapDispatchToProps https://pastebin.com/TMkK6fMM
+    3. bind actions to event handler functions https://pastebin.com/6Prcp7hr
+    4. render and export the component https://pastebin.com/pHrB9Bc0
+1. src/index.js: add route https://pastebin.com/8K4Hbhsg
 
 ## Add pagination (this is one of the last steps, I haven't written the intermediate guides yet) <a name="pagination"></a>
 Image: https://drive.google.com/open?id=1Lxc6qtuu9I_vMk_sDUORnjqrBZyEZc6G

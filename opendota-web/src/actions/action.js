@@ -19,8 +19,9 @@ export default function action(type, host, path, params = {}) {
       error,
     });
     // fetch data and retry on error
-    const fetchDataWIthRetry = delay => fetch(url, path === 'api/metadata' ? { credentials: 'include' } : {})
+    const fetchDataWithRetry = delay => fetch(url, path === 'api/metadata' ? { credentials: 'include' } : {})
       .then((response) => {
+        console.log(`${url} response: `, response);
         // add information to the response if it's an error
         // otherwise just jsonify it and pass it on
         if (!response.ok || !response.status) {
@@ -35,7 +36,9 @@ export default function action(type, host, path, params = {}) {
           }
           throw err;
         }
-        return response.json();
+        const responseJSON = response.json();
+        console.log(`${url} response: `, responseJSON);
+        return responseJSON;
       })
       // load data into state
       .then(json => dispatch(getDataOk(json)))
@@ -43,7 +46,7 @@ export default function action(type, host, path, params = {}) {
         // error => log and try again with an increasing delay
         console.error(e);
         if (e.fetchError && !e.clientError) {
-          setTimeout(() => fetchDataWIthRetry(delay + 3000), delay);
+          setTimeout(() => fetchDataWithRetry(delay + 3000), delay);
         }
         if (!e.fetchError) {
           throw e;
@@ -51,6 +54,6 @@ export default function action(type, host, path, params = {}) {
       });
     // initiate request
     dispatch(getDataStart());
-    return fetchDataWIthRetry(1000);
+    return fetchDataWithRetry(1000);
   }
 }

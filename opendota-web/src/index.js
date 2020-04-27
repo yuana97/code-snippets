@@ -5,6 +5,10 @@ import { Router } from 'react-router-dom';
 import App from './components/App';
 import { Provider } from 'react-redux';
 import store from './store';
+import { getMetadata, getStrings} from './actions';
+
+store.dispatch(getMetadata());
+store.dispatch(getStrings());
 
 const history = createBrowserHistory();
 

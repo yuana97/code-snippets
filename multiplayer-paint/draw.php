@@ -8,10 +8,13 @@ if ($_REQUEST['submit']) {
   $data = $_POST['data'];
   $key = "$x,$y";
   $filename = "tmp/" . $key . '-' . rand()%100;
-  file_put_contents($filename, json_encode($data));
+  $json = json_encode($data);
+  print_r("$filename \n $json \n");
+  file_put_contents($filename,$json);
   print_r("$x $y $filename \n");
   // run save.py
-  $result = trim(shell_exec("python3 save.py '$x' '$y' '$filename' 2>&1"));
+  shell_exec("source env/bin/activate");
+  $result = trim(shell_exec("python /var/www/canvasgamedemo/save.py '$x' '$y' '$filename' 2>&1"));
   if ($result != 1) {
     die("Error saving. $result<HR>");
   }

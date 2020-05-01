@@ -2,7 +2,7 @@ Written walkthrough following Techlead's https://www.youtube.com/watch?v=t1aXuJk
 
 This guide covers the development and deployment of a 'Multiplayer Paint'
 
-WIP at www.canvasgamedemo.com
+Finished at www.canvasgamedemo.com
 
 # Table of contents
 1. [Troubleshooting](#troubleshooting)
@@ -134,10 +134,17 @@ The above steps cover up to 2:30 in the linked video
 1. get in touch with database:
     1. go to firebase project settings > service accounts > generate new private key. That should download a json file, move the contents of this json file to a new file called creds.json in your project directory.
     2. create a file save.py: https://pastebin.com/32mwrR1R . Checkup: cd /var/www/canvasgamedemo and run python save.py . Now you should be able to go to your database and see your data inside.
-1. write to the database
+1. write to the database (draw and submit)
     1. modify save.py to write the pixel-painting mapping to the db https://pastebin.com/HfJ610TV
     2. invoke save.py via draw.php https://pastebin.com/cpmbwQM3
     3. add firestore script to index.php and remove the configuration https://pastebin.com/cRDskvgA
     4. move the configuration to index.js https://pastebin.com/JDvm2HWj
-    5. TODO: running save.py via php gives firebase-admin module not found error (while running via cli is fine). Also draw.php's file_put_contents doesnt seem to be working.
+    5. on your server 'cd /var/www/canvasgamedemo' and then 'mkdir tmp' and then 'sudo chmod -R 777 .' so your draw.php has permissions to write to files in canvasgamedemo/tmp
+    5. In order for our Apache server user to run save.py we need to install firebase-admin as root. To do this, sudo -i and pip install firebase-admin.
+    6. Checkup: go to canvasgamedemo.com, click a square, draw something, and press save. You should be redirected back to index. Then check your Firestore and you should see a new entry for your drawing.
+1. read the database (see the parent painting)
+    1. attempt to read the db and log data in index.js https://pastebin.com/d62NR1RQ . Checkup: go to your website and open up chrome inspector > console. You should see 'FirebaseError: Missing or insufficient permissions'
+    2. go to Firebase > Database > Rules and change the rules document to the following https://pastebin.com/i7z4mzFB in order to allow reading by anyone. Checkup: Refresh canvasgamedemo.com, open console, and confirm data is being logged
+    3. Add some logic to index.js to paint on the parent after reading in the data https://pastebin.com/h7m5bpxp
+1. Now you should be done. Checkup: draw something on a child page and go back to the parent. You should see your drawing now.
 

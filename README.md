@@ -14,3 +14,8 @@ Deployable, commented projects with detailed coding guides in each folder. Tripl
 - Docker: https://docker-curriculum.com/#introduction
 - Flask: https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
 - Serverless: https://serverless-stack.com/
+
+### Command line notes
+- get python site packages dir: python -m site --user-site
+- become root: sudo -i
+- go from root to regular user: su - username

@@ -1,4 +1,4 @@
-Written walkthrough following https://www.youtube.com/watch?v=t1aXuJkmTg8 .
+Written walkthrough following Techlead's https://www.youtube.com/watch?v=t1aXuJkmTg8 .
 
 This guide covers the development and deployment of a 'Multiplayer Paint' 
 

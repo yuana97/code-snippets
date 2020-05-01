@@ -1,4 +1,19 @@
-Written walkthrough following https://www.youtube.com/watch?v=t1aXuJkmTg8 ... including all the deployment details he skips.
+Written walkthrough following https://www.youtube.com/watch?v=t1aXuJkmTg8 .
+
+This guide covers the development and deployment of a 'Multiplayer Paint' 
+
+# Table of contents
+1. [Troubleshooting](#troubleshooting)
+1. [Prerequisites](#prereqs)
+1. [Development Pt 1](#development1)
+1. [Development Pt 2](#development2)
+
+## Troubleshooting <a name="troubleshooting"></a>
+**sshfs i/o error**
+1. pgrep -lf sshfs (copy the PID of the sshfs process)
+1. kill -9 <PID> (kill sshfs process)
+1. sudo umount -f /Users/alleyuan/canvasgamedemo (unmount directory)
+1. mrd (alias to sshfs and remount directory)
 
 ## Prerequisites
 **Purchase domain name and server**
@@ -82,4 +97,45 @@ There are a couple ways of doing this (for example rsync, scp). We will use sshf
 1. Checkup: Open up ~/canvasgamedemo in VS Code. You should see your server code here with the index.html and info.php. Now you're ready to code!
 1. You may want to set up some aliases for common commands for example mounting the remote drive, or sshing into your server. To do this, vim ~/.bash_profile and add in "alias mrd="sshfs allen@138.197.110.75:/var/www/canvasgamedemo ~/canvasgamedemo"" and so on for your commands.
 
-The above steps cover up to 2:30 in the linked video.
+The above steps cover up to 2:30 in the linked video
+
+## Development <a name="development1"></a>
+**Scaffold**
+1. cd ~/canvasgamedemo (replace ~/canvasgamedemo with your mounted drive)
+1. git clone https://github.com/Simonwep/pickr.git
+1. delete index.html and info.php from the setup
+1. Add a simple index.php https://pastebin.com/Ux4Rg5by
+1. Add a simple canvas draw.php https://pastebin.com/X24nSyUJ We import scripts and styles we need and scaffold an html template.
+1. Checkup: go to www.canvasgamedemo.com and you should see 'Hello there'. Go to canvasgamedemo.com/draw.php and you should see a blank canvas.
+
+**Draw on the canvas**
+1. Add the draw.js script we included in draw.php https://pastebin.com/p8awcLZS Now you should see the grid being drawn on the canvas
+1. Add some logic to draw.js to draw on the grid https://pastebin.com/zaTk3h0f Now you should be able to mousedown on the grid and draw.
+1. Leverage the pickr library to add color picking https://pastebin.com/MwYZpVEf Now you should be able to click 'Choose color', choose color, and draw in a different color.
+
+**Main page**
+1. Scaffold index.php https://pastebin.com/e0dDu7MG
+1. Add index.js to draw a grid on the index page https://pastebin.com/X2it3iC3
+1. Add logic to highlight selected boxes and go to the draw page when the user clicks on the boxes https://pastebin.com/MS1DYC0c
+
+## Development Pt 2 <a name="development2">
+
+1. Go to https://firebase.google.com/ and create a new project called canvasgamedemo. Once done go to your project page and click the web symbol ( </> ). Register your app and paste the configuration into your index.php like https://pastebin.com/7UxLYDYc
+1. on your firebase project page click 'Cloud Firestore' and provision a database. Once that's done, click 'start a collection' named app with a document called grid.
+1. scaffold save function: pass querystring vars to save function in draw.php https://pastebin.com/pnfe6v1p and add save function to draw.js: https://pastebin.com/aaFJ25zj
+    1. Checkup: draw something and press 'save'. You should see your request body being printed below the save button.
+1. install firebase admin on your server:
+    1. ssh into your cloud instance
+    2. sudo apt install python-pip
+    3. cd into your server directory (in my case, /var/www/canvasgamedemo)
+    4. pip install -U firebase-admin
+1. get in touch with database:
+    1. go to firebase project settings > service accounts > generate new private key. That should download a json file, move the contents of this json file to a new file called creds.json in your project directory.
+    2. create a file save.py: https://pastebin.com/32mwrR1R . Checkup: cd /var/www/canvasgamedemo and run python save.py . Now you should be able to go to your database and see your data inside.
+1. write to the database
+    1. modify save.py to write the pixel-painting mapping to the db https://pastebin.com/HfJ610TV
+    2. invoke save.py via draw.php https://pastebin.com/cpmbwQM3
+    3. add firestore script to index.php and remove the configuration https://pastebin.com/cRDskvgA
+    4. move the configuration to index.js https://pastebin.com/JDvm2HWj
+    5. TODO: running save.py via php gives firebase-admin module not found error (while running via cli is fine). Also draw.php's file_put_contents doesnt seem to be working.
+

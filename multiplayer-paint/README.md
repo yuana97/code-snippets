@@ -1,6 +1,8 @@
 Written walkthrough following Techlead's https://www.youtube.com/watch?v=t1aXuJkmTg8 .
 
-This guide covers the development and deployment of a 'Multiplayer Paint' 
+This guide covers the development and deployment of a 'Multiplayer Paint'
+
+WIP at www.canvasgamedemo.com
 
 # Table of contents
 1. [Troubleshooting](#troubleshooting)

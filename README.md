@@ -2,6 +2,7 @@
 
 Deployable, commented projects with detailed coding guides in each folder. Triple your output in six months by creating these projects.
 
+
 ## More Resources
 ### Projects:
 - Build Your Own X: https://github.com/danistefanovic/build-your-own-x

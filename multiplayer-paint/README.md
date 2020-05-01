@@ -9,6 +9,7 @@ Finished at www.canvasgamedemo.com
 1. [Prerequisites](#prereqs)
 1. [Development Pt 1](#development1)
 1. [Development Pt 2](#development2)
+1. [Next steps](#conclusion)
 
 ## Troubleshooting <a name="troubleshooting"></a>
 **sshfs i/o error**
@@ -147,4 +148,14 @@ The above steps cover up to 2:30 in the linked video
     2. go to Firebase > Database > Rules and change the rules document to the following https://pastebin.com/i7z4mzFB in order to allow reading by anyone. Checkup: Refresh canvasgamedemo.com, open console, and confirm data is being logged
     3. Add some logic to index.js to paint on the parent after reading in the data https://pastebin.com/h7m5bpxp
 1. Now you should be done. Checkup: draw something on a child page and go back to the parent. You should see your drawing now.
+
+## Next steps <a name="conclusion"></a>
+
+If you're walking through the steps you'll notice how deploying the website on a single Linux server is quite tedious and prone to errors (it would have been even more difficult and expensive if we were using our own physical server instead of provisioning an instance on the cloud). 
+
+Now imagine we had to deploy this site on 1000 servers - there should be no reason we need technicians to log in to set up the environment 1000 times for the web app to run.
+
+Docker is a tool which 'containerizes' all the environment setup and lets you run these prepackaged containers. Related to this are cloud providers like Amazon Web Services, Azure, and Google Cloud Engine which further abstract the process and handle everything from deployment, infrastructure, to security and scaling behind the scenes (provided you pay for the computing costs and write code to interface with their services).
+
+These will be our next topics
 

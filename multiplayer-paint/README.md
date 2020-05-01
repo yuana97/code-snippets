@@ -155,7 +155,7 @@ If you're walking through the steps you'll notice how deploying the website on a
 
 Now imagine we had to deploy this site on 1000 servers - there should be no reason we need technicians to log in to set up the environment 1000 times for the web app to run.
 
-Docker is a tool which 'containerizes' all the environment setup and lets you run these prepackaged containers. Related to this are cloud providers like Amazon Web Services, Azure, and Google Cloud Engine which further abstract the process and handle everything from deployment, infrastructure, to security and scaling behind the scenes (provided you pay for the computing costs and write code to interface with their services).
+**Docker** is a tool which 'containerizes' all the environment setup and lets you run these prepackaged containers. Related to this are **cloud providers** like Amazon Web Services, Azure, and Google Cloud Engine which further abstract the process and handle everything from deployment, infrastructure, to security and scaling behind the scenes (provided you pay for the computing costs and write code to interface with their services).
 
 These will be our next topics
 

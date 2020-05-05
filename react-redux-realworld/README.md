@@ -108,6 +108,19 @@ Images: https://drive.google.com/open?id=1RjjpJmB4VtI724B4EXczkijeqG_M2UQT https
     4. render and export the component https://pastebin.com/pHrB9Bc0
 1. src/index.js: add route https://pastebin.com/8K4Hbhsg
 
+**Settings View**
+1. src/components/Settings.js: scaffold a settings component https://pastebin.com/Yq2GNtAf
+1. Reducers
+    1. src/reducers/settings.js: add reducer for settings component
+    2. update src/store.js to include the settings reducer https://pastebin.com/KdgekG8M
+    3. update src/reducers/common.js to handle logout and settings save actions https://pastebin.com/RN7bp4nj
+    4. update src/agent.js to include request for updating user settings https://pastebin.com/iqiKNBJp
+1. add SettingsForm class to src/components/Settings.js: https://pastebin.com/NUkXpg3W
+    1. add route in src/index.js for settings https://pastebin.com/VSi2Kjzz
+1. State cleanup (so form data doesn't persist on login+register page)
+    1. add unload dispatch to src/components/Login.js https://pastebin.com/BX3qRJCL
+    2. update src/reducers/auth.js to clear state on unload https://pastebin.com/yJSB6N3P
+
 ## Add pagination (this is one of the last steps, I haven't written the intermediate guides yet) <a name="pagination"></a>
 Image: https://drive.google.com/open?id=1Lxc6qtuu9I_vMk_sDUORnjqrBZyEZc6G
 Buy the course: https://thinkster.io/tutorials/react-redux-pagination

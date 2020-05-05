@@ -24,3 +24,10 @@ Docker Crash Course (notes on https://docker-curriculum.com/)
 1. cleanup
     1. docker ps -a
     2. docker rm 51ba8b706b45 37572788f681 (put your container id's listed by docker ps -a in the rm command)
+
+**Deploy a static site**
+1. docker run --rm prakhar1989/static-site (run the prakhar1989/static-site image and automatically clean it up on exit)
+1. You should see 'Nginx is running...'. ctrl+c to stop the container
+1. docker run -d -P --name static-site prakhar1989/static-site (start static-site in detached mode and publish all ports, and name it static-site)
+1. docker port static-site (show the ports running the container)
+    1. You should be able to see

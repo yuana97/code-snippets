@@ -95,7 +95,7 @@ Images: https://drive.google.com/open?id=1RjjpJmB4VtI724B4EXczkijeqG_M2UQT https
 1. src/components/Header.js : Add separate LoggedInView and LoggedOutView which we conditionally render based on login status https://pastebin.com/ENQF8aCA
 1. src/components/App.js : pass currentUser from App to Header https://pastebin.com/fDQKJ97E
 
-## Build registration and authentication forms <a name="forms"></a>
+## Build registration and settings forms <a name="forms"></a>
 
 **Registration View**
 1. src/agent.js: add register function to agent.Auth https://pastebin.com/v5nZ3UFE

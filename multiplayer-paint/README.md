@@ -14,7 +14,7 @@ Finished at www.canvasgamedemo.com
 ## Troubleshooting <a name="troubleshooting"></a>
 **sshfs i/o error**
 1. pgrep -lf sshfs (copy the PID of the sshfs process)
-1. kill -9 <PID> (kill sshfs process)
+1. kill -9 {PID} (kill sshfs process)
 1. sudo umount -f /Users/alleyuan/canvasgamedemo (unmount directory)
 1. mrd (alias to sshfs and remount directory)
 
@@ -24,7 +24,7 @@ Finished at www.canvasgamedemo.com
 1. Provision a droplet (a small ec2 instance) on https://www.digitalocean.com/ . Select Ubuntu OS
 1. https://cloud.digitalocean.com/settings/security add your ssh key.
 1. copy your droplet's ip address
-1. open up a terminal and run 'ssh root@<DROPLET_IP>' and log into your server.
+1. open up a terminal and run 'ssh root@{DROPLET_IP}' and log into your server.
 
 **Create a non-root user for your server and set up a firewall**
 All terminal commands should be run while ssh'd onto your server, not on your computer.
@@ -37,7 +37,7 @@ https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubunt
     2. ufw enable (enable firewall)
 1. login as new user
     1. ctrl+c to logout of root
-    2. ssh allen@<MY_DROPLET_IP> (replace with your username and your ip)
+    2. ssh allen@{MY_DROPLET_IP} (replace with your username and your ip)
 
 **Point your domain name to your provisioned server**
 1. go to namecheap.com and click on your domain name. go to advanced DNS
@@ -52,14 +52,14 @@ https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mys
 1. enable web traffic thru firewall
     1. sudo ufw app list (we should see Apache Full on the list)
     2. sudo ufw allow in "Apache Full"
-    3. Checkup: Go to http://<DROPLET_IP> and you should see the apache default page
+    3. Checkup: Go to http://{DROPLET_IP} and you should see the apache default page
 1. install mysql
     1. sudo apt install mysql-server
     2. sudo mysql_secure_installation
 1. set mysql root user to authenticate with password
     1. sudo mysql (open up mysql shell)
     2. SELECT user,authentication_string,plugin,host FROM mysql.user; (you should see root uses auth_socket to authenticate)
-    3. ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '<password>'; (replace <password> with your own password)
+    3. ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '{password}'; (replace {password} with your own password)
     4. FLUSH PRIVILEGES; (server reloads grant tables and puts changes into effect)
     5. Checkup: SELECT user,authentication_string,plugin,host FROM mysql.user; (confirm root uses mysql_native_password)
     6. run 'exit' to exit the mysql shell

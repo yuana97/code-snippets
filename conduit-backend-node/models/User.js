@@ -7,6 +7,7 @@ var jwt = require('jsonwebtoken');
 var secret = require('../config').secret;
 
 // schema representing user data
+// we validate and index by username and email
 var UserSchema = new mongoose.Schema(
   {
     username: {

@@ -5,6 +5,7 @@ var User = mongoose.model('User');
 var auth = require('../auth');
 
 router.post('/users', function(req, res, next) {
+  console.log('post /users');
   // create a user, set its fields to the data from request
   var user = new User();
 
@@ -19,6 +20,7 @@ router.post('/users', function(req, res, next) {
 });
 
 router.post('/users/login', function(req, res, next) {
+  console.log('post /users/login');
   // data validation
   if (!req.body.user.email) {
     return res.status(422).json({errors: {email: "can't be blank"}});
@@ -52,6 +54,7 @@ router.get('/user', auth.required, function(req, res, next) {
 
 // update user with new profile data
 router.put('/user', auth.required, function(req, res, next) {
+  console.log('put /user');
   User.findById(req.payload.id).then(function(user) {
     if (!user) { return res.sendStatus(401); }
 

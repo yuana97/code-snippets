@@ -3,7 +3,8 @@ var secret = require('../config').secret;
 
 // utility to parse token from headers.authorization
 function getTokenFromHeader(req) {
-  if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Token') {
+  if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Token' ||
+      req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
     return req.headers.authorization.split(' ')[1];
   }
 

@@ -48,4 +48,17 @@ We want to create four endpoints for authentication: POST /api/users for registe
 1. routes/api/users.js: add the rest of the routes https://pastebin.com/7Z5eaJ01
 
 **Testing**
+1. install and run mongodb https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/ (choose windows/linux from the left navigation if you're not on mac)
+1. npm run dev (start your server)
+1. download postman https://www.postman.com/downloads/
+    1. Import > import from link > paste https://raw.githubusercontent.com/gothinkster/realworld/master/api/Conduit.postman_collection.json a collection of unit tests for our apis
+    2. create a postman_env.json like the following so we load the env vars to run the unit tests we just imported https://pastebin.com/GxhXkvJX
+    3. in postman click settings icon (manage environments) > import > click your postman_env.json.
+    4. click on the environment dropdown and select Conduit
+1. testing
+    1. Register: click Auth > register from the postman side nav. Replace {{APIURL}} with localhost:3000/api then click body and pass your desired parameters to the body. Hit send, you should see your server return a user object. Hit send again, you should see 'email is already taken' error.
+    2. Login and Remember Token: click auth > login. Replace the URL and body params as before. Hit send and you shoudl see a user object get returned. Copy the token to test the current user endpoint.
+    3. Current User: Replace URL, go to headers and replace {{token}} with your copied token, hit send. You should get a user object back.
+    4. Update User: Replace url + token as above, change the email in the body to a new email, and hit send. you should get a user object back with your updated email.
 
+This covers unit testing our API with Postman. You should see at this point that our auth API is up and running, and make sure to debug if it's not.

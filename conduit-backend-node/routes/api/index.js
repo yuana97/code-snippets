@@ -2,6 +2,7 @@ var router = require('express').Router();
 
 router.use('/', require('./users'));
 router.use('/profiles', require('./profiles'));
+router.use('/articles', require('./articles'));
 
 // catch validation errors thrown by Mongoose and return an object with
 // all these errors

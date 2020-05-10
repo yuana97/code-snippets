@@ -65,7 +65,7 @@ We want to create four endpoints for authentication: POST /api/users for registe
 This covers unit testing our API with Postman. You should see at this point that our auth API is up and running, and make sure to debug if it's not.
 
 ## Profile + articles apis <a name="articles"></a>
-We want to add a public route for viewing profiles, as well as routes to CRUD articles.
+We want to add a public route for viewing profiles, as well as routes to CRUD (create read update delete) articles.
 
 **Profile**
 1. add a method to models/User.js for returning a user's public profile https://pastebin.com/w05XqLE2
@@ -75,7 +75,34 @@ We want to add a public route for viewing profiles, as well as routes to CRUD ar
 1. Consider the 'following' feature of the site which we will implement down the line. In order to correctly display whether you're following a given user, we need to pass the current user to the toProfileJsonFor method. Let's do that now.
     1. update toProfileJsonFor in models/User.js to take a user param https://pastebin.com/5tk476Z1
     2. routes/api/profiles.js: update the GET /:username endpoint to pass the user profile to toProfileJsonFor https://pastebin.com/nHgh158S
-
-**Testing**
 1. Provided you've done the testing steps above for Authentication, use the Profiles > Profile request in Postman to localhost:3000/api/profiles/{USERNAME} and confirm that you get back a profile without sensitive information like email, auth token, etc.
 
+**CRUD for Articles**
+We want to CRUD (create read update delete) our articles. Let's consider all the data we need to represent an article:
+
+- slug: URL slug to identify the article, used for database lookups
+- title: Article title
+- body: Markdown text for our article body
+- description: Article description
+- favoritesCount: how many times the article has been favorited
+- tagList: a list of tags attached to the article
+- author: JSON profile of the author
+
+**Create a model and API**
+
+1. Create an article model in models/Article.js. We should include the schema above, some data validation, and a method to get the article JSON. https://pastebin.com/QsAKcB4v
+    1. Register this model with app.js https://pastebin.com/6XrSLH3Z
+1. Create a basic router for articles in routes/api/articles.js https://pastebin.com/Zxq5b3KT
+    1. Register the articles router with routes/api/index.js https://pastebin.com/H1A8eGdp
+    2. Add endpoints to routes/api/articles.js to C, R, U, D articles https://pastebin.com/4x9ZuESF
+
+**Testing**
+
+Do these tests in Postman.
+
+1. Use Auth > Login and Remember Token (POST localhost:3000/api/users/login) and copy the token you get back
+1. Go to Articles,Favorite,Comments > Create Article (POST localhost:3000/api/articles) and change headers.authorization to Token {{your_token}}, change the endpoint to localhost:3000/api/articles, and hit send. You should get the article object back. Copy the slug for the next test.
+1. Go to Single Article by Slug (GET localhost:3000/api/articles/{{slug}}) and plug in your token to headers, api url and slug to the endpoint. Hit send and you should see your article come back.
+1. Go to Update Article (localhost:3000/api/articles/{{slug}}) and plug in your token to headers, api url and slug to the endpoint. Change the body to something like 'test1' and hit send. You should get the article back and see that the body has changed to 'test1'.
+1. Go to Delete Article (localhost:3000/api/articles/{{slug}}), plug in your stuff and hit send. You should get a 204 response.
+1. Repeat your Single Article by Slug request. You should get a 404 error.

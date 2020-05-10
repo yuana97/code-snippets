@@ -78,6 +78,7 @@ We want to add a public route for viewing profiles, as well as routes to CRUD (c
 1. Provided you've done the testing steps above for Authentication, use the Profiles > Profile request in Postman to localhost:3000/api/profiles/{USERNAME} and confirm that you get back a profile without sensitive information like email, auth token, etc.
 
 **CRUD for Articles**
+
 We want to CRUD (create read update delete) our articles. Let's consider all the data we need to represent an article:
 
 - slug: URL slug to identify the article, used for database lookups

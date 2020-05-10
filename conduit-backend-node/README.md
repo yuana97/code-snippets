@@ -10,6 +10,7 @@ The backend for a social blogging app. See the working website here: https://
 # Table of contents
 1. [Setup + first model](#setup)
 1. [Authentication API](#auth)
+1. [Profiles and articles api](#articles)
 
 ## Setup + first model <a name="setup"></a>
 **Setup**
@@ -62,3 +63,19 @@ We want to create four endpoints for authentication: POST /api/users for registe
     4. Update User: Replace url + token as above, change the email in the body to a new email, and hit send. you should get a user object back with your updated email.
 
 This covers unit testing our API with Postman. You should see at this point that our auth API is up and running, and make sure to debug if it's not.
+
+## Profile + articles apis <a name="articles"></a>
+We want to add a public route for viewing profiles, as well as routes to CRUD articles.
+
+**Profile**
+1. add a method to models/User.js for returning a user's public profile https://pastebin.com/w05XqLE2
+1. create a basic api in routes/api/profiles.js https://pastebin.com/DuD0LYx6
+    1. register it with routes/api/index.js https://pastebin.com/QwdeiQ82
+    2. add an endpoint to routes/api/profiles.js to get the user profile https://pastebin.com/pYM0xZma
+1. Consider the 'following' feature of the site which we will implement down the line. In order to correctly display whether you're following a given user, we need to pass the current user to the toProfileJsonFor method. Let's do that now.
+    1. update toProfileJsonFor in models/User.js to take a user param https://pastebin.com/5tk476Z1
+    2. routes/api/profiles.js: update the GET /:username endpoint to pass the user profile to toProfileJsonFor https://pastebin.com/nHgh158S
+
+**Testing**
+1. Provided you've done the testing steps above for Authentication, use the Profiles > Profile request in Postman to localhost:3000/api/profiles/{USERNAME} and confirm that you get back a profile without sensitive information like email, auth token, etc.
+

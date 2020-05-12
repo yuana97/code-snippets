@@ -91,4 +91,40 @@ router.delete('/:article', auth.required, function(req, res, next) {
   });
 });
 
+// favorite article
+router.post('/:article/favorite', auth.required, function(req, res, next) {
+  // extract id from posted article
+  var articleId = req.article._id;
+  console.log('articleId', articleId);
+  console.log('payload.id', req.payload.id);
+
+  // find posted user, favorite the article, update favorite count, and return article
+  User.findById(req.payload.id).then(function(user){
+    if (!user) { return res.sendStatus(401); }
+    console.log('user', user);
+  
+    return user.favorite(articleId).then(function(){
+      console.log('about to run updatefavoritecount');
+      return req.article.updateFavoriteCount().then(function(article){
+        return res.json({article: article.toJSONFor(user)});
+      });
+    });
+  }).catch(next);
+});
+
+// unfavorite. Ditto favorite method, but using user.unfavorite
+router.delete('/:article/favorite', auth.required, function(req, res, next) {
+  var articleId = req.article._id;
+
+  User.findById(req.payload.id).then(function (user){
+    if (!user) { return res.sendStatus(401); }
+
+    return user.unfavorite(articleId).then(function(){
+      return req.article.updateFavoriteCount().then(function(article){
+        return res.json({article: article.toJSONFor(user)});
+      });
+    });
+  }).catch(next);
+});
+
 module.exports = router;

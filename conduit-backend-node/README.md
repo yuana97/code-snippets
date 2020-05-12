@@ -11,6 +11,7 @@ The backend for a social blogging app. See the working website here: https://
 1. [Setup + first model](#setup)
 1. [Authentication API](#auth)
 1. [Profiles and articles api](#articles)
+1. [Favoriting](#fav)
 
 ## Setup + first model <a name="setup"></a>
 **Setup**
@@ -107,3 +108,24 @@ Do these tests in Postman.
 1. Go to Update Article (localhost:3000/api/articles/{{slug}}) and plug in your token to headers, api url and slug to the endpoint. Change the body to something like 'test1' and hit send. You should get the article back and see that the body has changed to 'test1'.
 1. Go to Delete Article (localhost:3000/api/articles/{{slug}}), plug in your stuff and hit send. You should get a 204 response.
 1. Repeat your Single Article by Slug request. You should get a 404 error.
+
+## Implement favoriting functionality <a name="fav"></a>
+
+Favoriting requirements: We should be able to view a list of a user's favorited articles. For any given user articles should display a favorite/unfavorite button. Articles should have a favorited count.
+
+**Data**
+1. models/User.js: Add favorites data and favorite/unfavorite methods to UserSchema to record the user's list of favorited articles https://pastebin.com/N6NFqaWa
+1. models/User.js: Add isFavorite method to check if an article is in the favorited list. https://pastebin.com/vEKALdsv
+    1. models/Article.js: Add a favorited field to the toJSONFor output to check if we should display the favorite/unfavorite button https://pastebin.com/ZdwGDf15
+1. models/Article.js: import User model and add favoriteCount method https://pastebin.com/Sma4L0ZR
+
+**Endpoints**
+1. routes/api/articles.js: add favorite/unfavorite endpoints https://pastebin.com/1x6q7sAg
+
+**Testing**
+Run these tests in Postman.
+
+1. Create Article and copy the slug
+1. Login and Remember Token and copy the token.
+1. Plug in the token, slug, and apiurl to Favorite Article and hit send. You should get your article back with a favoriteCount of one.
+1. Ditto for Unfavorite Article but your article should come back with a favoritesCount of 0.

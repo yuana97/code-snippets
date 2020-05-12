@@ -30,11 +30,35 @@ var UserSchema = new mongoose.Schema(
     image: String,
     hash: String,
     salt: String,
+    favorites: [{type: mongoose.Schema.Types.ObjectId, ref: 'Article'}],
   },
-  {timestamps: true}
+  {timestamps: true, usePushEach: true}
 );
 
 UserSchema.plugin(uniqueValidator, {message: 'is already taken.'});
+
+// push article id to favorites list and save the state of the user
+UserSchema.methods.favorite = function (id) {
+  if (this.favorites.indexOf(id) === -1) {
+    this.favorites = this.favorites.concat([id]);
+    console.log('favorites after favoriting', this.favorites);
+    console.log('article id', id);
+  }
+  return this.save();
+};
+
+// remove article from favorites list and save state
+UserSchema.methods.unfavorite = function (id) {
+  this.favorites.remove(id);
+  return this.save();
+};
+
+// check if the favoriteid is
+UserSchema.methods.isFavorite = function (id) {
+  return this.favorites.some(function (favoriteId) {
+    return favoriteId.toString() === id.toString();
+  });
+};
 
 // record a salt and hash for the password
 UserSchema.methods.setPassword = function (password) {
@@ -54,16 +78,19 @@ UserSchema.methods.validPassword = function (password) {
 };
 
 // generate a JWT
-UserSchema.methods.generateJWT = function() {
+UserSchema.methods.generateJWT = function () {
   var today = new Date();
   var exp = new Date(today);
   exp.setDate(today.getDate() + 60);
 
-  return jwt.sign({
-    id: this._id,
-    username: this.username,
-    exp: parseInt(exp.getTime() / 1000),
-  }, secret);
+  return jwt.sign(
+    {
+      id: this._id,
+      username: this.username,
+      exp: parseInt(exp.getTime() / 1000),
+    },
+    secret
+  );
 };
 
 // send user object to front end
@@ -73,16 +100,17 @@ UserSchema.methods.toAuthJSON = function () {
     email: this.email,
     token: this.generateJWT(),
     bio: this.bio,
-    image: this.image
+    image: this.image,
   };
 };
 
-UserSchema.methods.toProfileJSONFor = function(user) {
+UserSchema.methods.toProfileJSONFor = function (user) {
   return {
     username: this.username,
     bio: this.bio,
-    image: this.image || 'https://static.productionready.io/images/smiley-cyrus.jpg',
-    following: false
+    image:
+      this.image || 'https://static.productionready.io/images/smiley-cyrus.jpg',
+    following: false,
   };
 };
 

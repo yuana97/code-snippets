@@ -127,4 +127,78 @@ router.delete('/:article/favorite', auth.required, function(req, res, next) {
   }).catch(next);
 });
 
+// comment on an article
+router.post('/:article/comments', auth.required, function(req, res, next) {
+  // our auth middleware validates the user and puts the data in req.payload
+  // find requesting user
+  User.findById(req.payload.id).then(function(user){
+    // DNE => 401 forbidden
+    if (!user) { return res.sendStatus(401); }
+    
+    // comment obj
+    var comment = new Comment(req.body.comment);
+    comment.article = req.article;
+    comment.author = user;
+
+    // save comment to db and add to article comments list
+    return comment.save().then(function() {
+      req.article.comments.push(comment);
+      // save article update and return comment
+      return req.article.save().then(function(article) {
+        res.json({comment: comment.toJSONFor(user)});
+      });
+    });
+  }).catch(next);
+});
+
+// list comments on an article
+router.get('/:article/comments', auth.optional, function(req, res, next){
+  // grab user if logged in
+  Promise.resolve(req.payload ? User.findById(req.payload.id) : null).then(function(user){
+    // populate the comments and author of each comment (lookup data of an id) and return array
+    // sorted by newest to oldest comment.
+    return req.article.populate({
+      path: 'comments',
+      populate: {
+        path: 'author'
+      },
+      options: {
+        sort: {
+          createdAt: 'desc'
+        }
+      }
+    }).execPopulate().then(function(article) {
+      // return JSON of each comment
+      return res.json({comments: req.article.comments.map(function(comment){
+        return comment.toJSONFor(user);
+      })});
+    });
+  }).catch(next);
+});
+
+// middleware to resolve :comment path variable
+router.param('comment', function(req, res, next, id) {
+  // grab comment by id and put it into the request
+  Comment.findById(id).then(function(comment){
+    if(!comment) { return res.sendStatus(404); }
+    req.comment = comment;
+
+    return next();
+  }).catch(next);
+});
+
+router.delete('/:article/comments/:comment', auth.required, function(req, res, next) {
+  // if requester=author remove comment from article, save schema, remove comment from db
+  if (req.comment.author.toString() === req.payload.id.toString()) {
+    req.article.comments.remove(req.comment._id);
+    req.article.save()
+      .then(Comment.find({_id: req.comment._id}).remove().exec())
+      .then(function(){
+        res.sendStatus(204);
+      });
+  } else {
+    res.sendStatus(403);
+  }
+});
+
 module.exports = router;

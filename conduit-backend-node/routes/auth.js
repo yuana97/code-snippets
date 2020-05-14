@@ -13,7 +13,7 @@ function getTokenFromHeader(req) {
 
 // methods for routes where auth is required and optional
 var auth = {
-  // both these methods validate the token against the secret in config
+  // both these methods validate the token against the secret in config and put user data in payload
   required: jwt({
     secret: secret,
     userProperty: 'payload',

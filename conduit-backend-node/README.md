@@ -12,6 +12,7 @@ The backend for a social blogging app. See the working website here: https://
 1. [Authentication API](#auth)
 1. [Profiles and articles api](#articles)
 1. [Favoriting](#fav)
+1. [Comments](#comments)
 
 ## Setup + first model <a name="setup"></a>
 **Setup**
@@ -129,3 +130,16 @@ Run these tests in Postman.
 1. Login and Remember Token and copy the token.
 1. Plug in the token, slug, and apiurl to Favorite Article and hit send. You should get your article back with a favoriteCount of one.
 1. Ditto for Unfavorite Article but your article should come back with a favoritesCount of 0.
+
+## Implement commenting functionality <a name="comments"></a>
+
+Comment requirements: any user can comment on an article, anyone can read, author can delete. Articles contain lists of comments.
+
+1. models/Comment: create basic comment model w/ schema and getter method https://pastebin.com/mF64bU0n
+    1. register Comment in app.js https://pastebin.com/Q3uRfrSX
+    2. models/Article: add comment list field to schema https://pastebin.com/YXH8kQMC
+1. routes/api/articles.js: create CRD endpoints for comments https://pastebin.com/NR6CHWyx
+
+**Testing**
+
+Coming soon

@@ -11,7 +11,8 @@ var ArticleSchema = new mongoose.Schema({
   favoritesCount: {type: Number, default: 0},
   tagList: [{type: String}],
   // author id
-  author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+  author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
 }, {timestamps: true, usePushEach: true});
 
 // validate the slug is unique

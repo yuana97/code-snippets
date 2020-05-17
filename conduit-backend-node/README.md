@@ -13,6 +13,7 @@ The backend for a social blogging app. See the working website here: https://
 1. [Profiles and articles api](#articles)
 1. [Favoriting](#fav)
 1. [Comments](#comments)
+1. [Following](#follow)
 
 ## Setup + first model <a name="setup"></a>
 **Setup**

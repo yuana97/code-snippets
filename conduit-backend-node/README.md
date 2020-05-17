@@ -142,4 +142,18 @@ Comment requirements: any user can comment on an article, anyone can read, autho
 
 **Testing**
 
-Coming soon
+1. Login And Remember Token, hit send, copy token
+1. Create Article, paste token, hit send, copy slug
+1. Create Comment For Article, paste token + slug, hit send, copy commentid.
+    1. You should get your comment schema back.
+1. All Comments for Article, paste token + slug, hit send.
+    1. You should get a list of comments for your article.
+1. Delete Comment for Article, paste token + slug + commentid, hit send.
+    1. You should get a 204 status.
+
+## Implement following functionality <a name="follow"></a>
+
+Comment requirements: any user can comment on an article, anyone can read, author can delete. Articles contain lists of comments.
+
+1. models/User: Schema should store users you're following. Add methods for following/unfollowing. Add a method to check if a user is following another, and update the JSON payload to include a 'following' boolean. https://pastebin.com/CJAM1f3k
+1. routes/api/articles.js: Add endpoints to follow and unfollow users. https://pastebin.com/PStYwTep

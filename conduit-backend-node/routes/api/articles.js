@@ -3,6 +3,7 @@ var passport = require('passport');
 var mongoose = require('mongoose');
 var Article = mongoose.model('Article');
 var User = mongoose.model('User');
+var Comment = mongoose.model('Comment');
 var auth = require('../auth');
 
 // create articles endpoint
@@ -142,8 +143,7 @@ router.post('/:article/comments', auth.required, function(req, res, next) {
 
     // save comment to db and add to article comments list
     return comment.save().then(function() {
-      req.article.comments.push(comment);
-      // save article update and return comment
+      req.article.comments = req.article.comments.concat([comment]);
       return req.article.save().then(function(article) {
         res.json({comment: comment.toJSONFor(user)});
       });

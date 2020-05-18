@@ -108,13 +108,13 @@ UserSchema.methods.toAuthJSON = function () {
 // add user to the followed list
 UserSchema.methods.follow = function(id){
   if (this.following.indexOf(id) === -1){
-    this.following.push(id);
+    this.following = this.following.concat([id]);
   }
   return this.save();
 }
 
 // remove the user from the followed list
-UserSchema.method.unfollow = function(id){
+UserSchema.methods.unfollow = function(id){
   this.following.remove(id);
   return this.save();
 }

@@ -158,3 +158,9 @@ Comment requirements: any user can comment on an article, anyone can read, autho
 
 1. models/User: Schema should store users you're following. Add methods for following/unfollowing. Add a method to check if a user is following another, and update the JSON payload to include a 'following' boolean. https://pastebin.com/CJAM1f3k
 1. routes/api/articles.js: Add endpoints to follow and unfollow users. https://pastebin.com/PStYwTep
+
+**Testing**
+
+1. Login And Remember Token, hit send, copy token
+1. Follow Profile, plug in username and email of user you're following, plug in token. Hit send, you should get back a profile with following=true.
+1. Unfollow Profile, ditto above, you should get back a profile with following = false.

@@ -14,6 +14,7 @@ The backend for a social blogging app. See the working website here: https://
 1. [Favoriting](#fav)
 1. [Comments](#comments)
 1. [Following](#follow)
+1. [Tagging](#tags)
 
 ## Setup + first model <a name="setup"></a>
 **Setup**
@@ -165,7 +166,7 @@ Comment requirements: any user can comment on an article, anyone can read, autho
 1. Follow Profile, plug in username and email of user you're following, plug in token. Hit send, you should get back a profile with following=true.
 1. Unfollow Profile, ditto above, you should get back a profile with following = false.
 
-**Implement tag list functionality**
+## Implement tag list <a name="tags"></a>
 
 The article model already supports adding tags to an article. We want to create a list of the most frequent tags used over all articles.
 

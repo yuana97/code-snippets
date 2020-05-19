@@ -164,3 +164,16 @@ Comment requirements: any user can comment on an article, anyone can read, autho
 1. Login And Remember Token, hit send, copy token
 1. Follow Profile, plug in username and email of user you're following, plug in token. Hit send, you should get back a profile with following=true.
 1. Unfollow Profile, ditto above, you should get back a profile with following = false.
+
+**Implement tag list functionality**
+
+The article model already supports adding tags to an article. We want to create a list of the most frequent tags used over all articles.
+
+1. routes/api/tags.js: Create an endpoint for getting a list of tags sorted in descending order of frequency. https://pastebin.com/vGNE7RU6
+    1. router/api/index.js: Register tags.js with the router https://pastebin.com/ibaQatZb
+
+**Testing**
+1. Login and Remember Token > copy token
+1. Create Article > Create a few articles with different tag lists
+1. Single Article by slug > copy slug into request url, hit send, verify your article has the tags you put in.
+1. All Tags > send > verify tags are ordered in most frequent to least frequent.

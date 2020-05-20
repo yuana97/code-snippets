@@ -15,6 +15,7 @@ The backend for a social blogging app. See the working website here: https://
 1. [Comments](#comments)
 1. [Following](#follow)
 1. [Tagging](#tags)
+1. [List articles API](#list-articles)
 
 ## Setup + first model <a name="setup"></a>
 **Setup**
@@ -178,3 +179,16 @@ The article model already supports adding tags to an article. We want to create 
 1. Create Article > Create a few articles with different tag lists
 1. Single Article by slug > copy slug into request url, hit send, verify your article has the tags you put in.
 1. All Tags > send > verify tags are ordered in most frequent to least frequent.
+
+## List articles apis <a name="list-articles"></a>
+
+We want to add endpoints to return a paginated list of articles and filter articles by author/favoriter.
+
+1. routes/api/articles.js: Add an endpoint to aggregate articles based on some query params and return them https://pastebin.com/Wf1gpz9M
+1. update routes/api/articles.js to filter by author/favoriter/tags https://pastebin.com/TEG54iFn
+1. routes/api/articles.js: Add an endpoint for querying for articles the user is following https://pastebin.com/VPYGEcdL
+
+**Testing**
+
+To come
+

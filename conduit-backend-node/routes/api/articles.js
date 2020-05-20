@@ -22,6 +22,111 @@ router.post('/', auth.required, function(req, res, next) {
   }).catch(next);
 });
 
+// endpoint to list all articles
+router.get('/', auth.optional, function(req, res, next) {
+  // set query, limit, offset params for filtering/pagination.
+  var query = {};
+  var limit = 20;
+  var offset = 0;
+
+  if(typeof req.query.limit !== 'undefined'){
+    limit = req.query.limit;
+  }
+
+  if(typeof req.query.offset !== 'undefined'){
+    offset = req.query.offset;
+  }
+
+  // configure tags query
+  if(typeof req.query.tag !== 'undefined'){
+    query.tagList = {"$in" : [req.query.tag]};
+  }
+
+  // configure author/favoriter query
+  Promise.all([
+    req.query.author ? User.findOne({username: req.query.author}) : null,
+    req.query.favorited ? User.findOne({username: req.query.favorited}) : null
+  ]).then(function(results){
+    var author = results[0];
+    var favoriter = results[1];
+
+    if (author) {
+      query.author = author._id;
+    }
+
+    if (favoriter) {
+      query._id = {$in: favoriter.favorites};
+    } else if (req.query.favorited){
+      query._id = {$in: []};
+    }
+
+    // return promise for [articles matching query, count, user]
+    return Promise.all([
+      Article.find(query)
+        .limit(Number(limit))
+        .skip(Number(offset))
+        .sort({createdAt: 'desc'})
+        .populate('author')
+        .exec(),
+      Article.count(query).exec(),
+      req.payload ? User.findById(req.payload.id) : null,
+    ]).then(function(results){
+      var articles = results[0];
+      var articlesCount = results[1];
+      var user = results[2];
+
+      // return list of articles and articlesCount
+      return res.json({
+        articles: articles.map(function(article){
+          return article.toJSONFor(user);
+        }),
+        articlesCount: articlesCount
+      });
+    }).catch(next);
+  });
+});
+
+// feed from authors user is following
+router.get('/feed', auth.required, function(req, res, next){
+  // configure the query params
+  var limit = 20;
+  var offset = 0;
+
+  if(typeof req.query.limit !== 'undefined'){
+    limit = req.query.limit;
+  }
+
+  if(typeof req.query.offset !== 'undefined'){
+    offset = req.query.offset;
+  }
+
+  // grab user from mongo
+  User.findById(req.payload.id).then(function(user){
+    if (!user) { return res.sendStatus(401); }
+
+    // find the paginated list of articles for authors we're following
+    Promise.all([
+      Article.find({ author: {$in: user.following}})
+        .limit(Number(limit))
+        .skip(Number(offset))
+        .populate('author')
+        .exec(),
+      Article.count({ author: {$in: user.following}})
+    ]).then(function(results){
+      // return list of article JSON's
+      var articles = results[0];
+      var articlesCount = results[1];
+
+      return res.json({
+        articles: articles.map(function(article){
+          return article.toJSONFor(user);
+        }),
+        articlesCount: articlesCount
+      });
+    }).catch(next);
+  });
+});
+
 // router.param is an Express method to apply middleware to, in this case,
 // requests with an :article path parameter. Our middleware prepopulates
 // req.article with the article data before passing it to our endpoints

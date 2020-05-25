@@ -4,7 +4,7 @@ All credit to FamTrinli who made this youtube tutorial: https://www.youtube.com/
 
 # Table of contents
 1. [Setup](#setup)
-1. [Movement](#move)
+1. [Game](#game)
 
 ## Setup <a name="setup"></a>
 
@@ -15,14 +15,14 @@ All credit to FamTrinli who made this youtube tutorial: https://www.youtube.com/
 1. bash make.sh
     1. click resulting 'main' file, you should see some randomly generated platforms and Doodler the doodle jump character.
 
-## Movement <a name="move"></a>
+## Game <a name="game"></a>
 
-1. main.cpp: add code to make Doodler bounce https://pastebin.com/exHrAiGQ
-    1. recompile, see Doodler bouncing
-1. main.cpp: make doodler go left/right https://pastebin.com/G6Qhgw2N
-    1. recompile, use arrow keys to make doodler move left/right
-1. main.cpp: add platform jumping and scrolling https://pastebin.com/TQAbNzYC
-    1. recompile, you can now play doodle jump!
+1. main.cpp: move the ball and have it reflect off the sides https://pastebin.com/55RU3Zqp
+    1. recompile, see ball reflecting off sides
+1. main.cpp: add collision detection and have the ball destroy blocks/reflect off them https://pastebin.com/1xUt3Ka7
+    1. recompile, see ball destroying the blocks
+1. main.cpp: add reflection off paddle https://pastebin.com/LH9kiA5m
+    1. recompile, you can now play Arkanoid
 
 ## Done
 

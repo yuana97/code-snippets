@@ -11,9 +11,9 @@ All credit to FamTrinli who made this youtube tutorial: https://www.youtube.com/
 1. Install SFML https://www.youtube.com/watch?v=XEGLsHp2bw0
 1. write make.sh https://pastebin.com/buiAJkmX
 1. copy the images directory
-1. create starter main.cpp https://pastebin.com/Rmr9fRGi
+1. main.cpp: paint the game https://pastebin.com/wbfZMU8f
 1. bash make.sh
-    1. click resulting 'main' file, you should see the Arkanoid game painted on the screen
+    1. click resulting 'main' file, you should see some randomly generated platforms and Doodler the doodle jump character.
 
 ## Movement <a name="move"></a>
 

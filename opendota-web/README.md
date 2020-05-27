@@ -1,12 +1,13 @@
 # Description
 
-A tutorial to build the OpenDota front end. https://www.opendota.com/
+A tutorial to reverse engineer the OpenDota front end. https://www.opendota.com/
 
 Source code credits to Howard Chung and the OpenDota Project https://github.com/odota/web
 
 # Table of contents
 1. [Setup](#setup)
-1. [Home component](#home)
+1. [App shell](#app)
+1. [Home](#home)
 
 ## Setup <a name="setup"></a>
 **Render a basic component**
@@ -25,7 +26,7 @@ Source code credits to Howard Chung and the OpenDota Project https://github.com/
 
 Image: https://drive.google.com/open?id=1Jn6OLLvB1XuWEGXce1jZT5W4aTjal_cm
 
-## Home component <a name="home"></a>
+## App shell <a name="app"></a>
 
 First dispatch some actions to get constant data from the API.
 
@@ -49,4 +50,14 @@ Console (after adding logs): https://drive.google.com/open?id=1uEkUPRLVljJCCoVJw
     2. paste src/components/constants.js from the source repo
 1. src/components/App/muiTheme.js: configure MaterialUI https://pastebin.com/6xAXEsGT
 1. src/components/App/AppLogo.jsx: create AppLogo https://pastebin.com/ZXEJRCkH
+1. src/components/App/App.jsx: fill out a shell component to wrap the app https://pastebin.com/xuweW7nz
+    1. npm install all needed components and check your website. You should see the background images and some styling.
 
+## Home <a name="home"></a>
+
+1. src/components/Home/Home.jsx: scaffold the home component. It should have some buttons to login/query, an about section, and sponsor ad space, and styling for all aforementioned components. https://pastebin.com/MqB61kq0
+1. src/components/Home/Styled.jsx: style the subcomponents https://pastebin.com/P4KiAEN8
+1. src/components/Home/Buttons.jsx: Write a component for the home buttons https://pastebin.com/iSX15EaU
+    1. Add the IconSteam component we need for buttons: create components/Icon/index.js like https://pastebin.com/eVZALBg8 and components/Icon/Steam.jsx like https://pastebin.com/MPsMTtVn
+1. src/components/Home/Sponsors.jsx: Write a component to display sponsor links https://pastebin.com/9eewy0S8
+1. 

@@ -14,7 +14,7 @@ const Buttons = ({ user, strings }) => {
       !user &&
       <div>
         <FlatButton
-          label={<span className="label"><b>{strings.home_login}</b>{strings.home_login_desc}</span>}
+          label={<span className="label"><b>{strings.home_login}</b> {strings.home_login_desc}</span>}
           icon={<IconSteam />}
           href={`${process.env.REACT_APP_API_HOST}/login`}
         />
@@ -23,7 +23,7 @@ const Buttons = ({ user, strings }) => {
     <div className="bottomButtons">
       <div>
         <FlatButton
-          label={<span className="label"><b>{strings.home_parse}</b>{strings.home_parse_desc}</span>}
+          label={<span className="label"><b>{strings.home_parse}</b> {strings.home_parse_desc}</span>}
           containerElement={<Link to="/request">{strings.home_parse}</Link>}
         />
       </div>

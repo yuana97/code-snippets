@@ -37,7 +37,7 @@ export const DescriptionDiv = styled.div`
   font-size: ${constants.fontSizeMedium};
   opacity: 0.6;
   font-weight: ${constants.fontWeightLight};
-  text-align: right;
+  text-align: center;
 `;
 
 // style footer

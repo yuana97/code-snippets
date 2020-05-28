@@ -62,3 +62,5 @@ Console (after adding logs): https://drive.google.com/open?id=1uEkUPRLVljJCCoVJw
 1. src/components/Home/Sponsors.jsx: Write a component to display sponsor links https://pastebin.com/9eewy0S8
 1. src/components/Home/Why.jsx: Write a component for the 'Why' subcomponent https://pastebin.com/THf0epNi
     1. Add the needed icons. update src/components/Icon/index.js: https://pastebin.com/vehMTcEn and create src/components/Icon/Wand.jsx: https://pastebin.com/0WVFupyZ and create src/components/Icon/StatsBars.jsx: https://pastebin.com/d73UDyCB and create src/components/Icon/OpenSource.jsx: https://pastebin.com/Qu31qt8W
+
+## Header <a name="home"></a>

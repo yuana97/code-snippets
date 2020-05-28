@@ -26,4 +26,12 @@ key-value database for storing our notes data.
 
 Storage service for our file uploads (if user uploads file with note)
 
-1. Search S3 and click into the S3 console. 
+1. Search S3 and click into the S3 console.
+1. Create Bucket > name=notes-app-bucket-12 (needs to be unique name in regino), region=us east (virginia)
+1. select bucket > permissions > cors configuration > write this cors configuration https://pastebin.com/jixu0439
+
+**Cognito**
+
+User accounts and authentication.
+
+1. Cognito > Manage your User Pools

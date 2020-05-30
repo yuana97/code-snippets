@@ -11,6 +11,7 @@ import styled from 'styled-components';
 // sibling files
 import constants from '../constants';
 import Home from '../Home';
+import Header from '../Header';
 
 // helpers
 import GlobalStyle from './GlobalStyle';
@@ -60,6 +61,7 @@ const App = (props) => {
           defaultTitle = {strings.title_default}
           titleTemplate = {strings.title_template}
         />
+        <Header location={location} />
         <StyledBodyDiv {...props}>
           {/* routing */}
           <Switch>

@@ -45,6 +45,7 @@ int main()
           Vector2i pos = Mouse::getPosition(app);
           int x = pos.x/w + 1;
           int y = pos.y/w + 1;
+          std::cout << x << "\n" << y;
 
           int dx = 0;
           int dy = 0;

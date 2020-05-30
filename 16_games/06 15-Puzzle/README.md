@@ -17,7 +17,7 @@ All credit to FamTrinli who made this youtube tutorial: https://www.youtube.com/
 ## Game <a name="game"></a>
 
 1. main.cpp: render grid and move blocks https://pastebin.com/EDRGVm1a
-    1. bash make.sh, open main, confirm the grid is rendered and we can click blocks adjancent to the empty spot to move them around
+    1. bash make.sh, open main, confirm the grid is rendered and we can click blocks adjacent to the empty spot to move them around
 1. main.cpp: add animation to the block movement https://pastebin.com/asDY8Bmh
     1. compile, confirm the blocks slide smoothly.
 

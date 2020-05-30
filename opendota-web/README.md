@@ -64,3 +64,6 @@ Console (after adding logs): https://drive.google.com/open?id=1uEkUPRLVljJCCoVJw
     1. Add the needed icons. update src/components/Icon/index.js: https://pastebin.com/vehMTcEn and create src/components/Icon/Wand.jsx: https://pastebin.com/0WVFupyZ and create src/components/Icon/StatsBars.jsx: https://pastebin.com/d73UDyCB and create src/components/Icon/OpenSource.jsx: https://pastebin.com/Qu31qt8W
 
 ## Header <a name="home"></a>
+
+1. src/components/App/App.jsx: add the header component to the app shell https://pastebin.com/UZq9evN5, src/components/Header/Header.jsx: write a test Header component https://pastebin.com/v20Y1MTu, src/components/Header/index.js: export Header https://pastebin.com/vvjzWPhc
+    1. open up the app, you should see your test header text at the top.

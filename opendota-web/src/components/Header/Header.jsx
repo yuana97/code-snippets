@@ -9,19 +9,19 @@ import {
 } from '@material-ui/core';
 import {BugReport, Menu as MenuIcon, Settings} from '@material-ui/icons';
 import LogOutButton from 'material-ui/svg-icons/action/power-settings-new';
-import ActionSearch from 'material-ui/svg-icons/action/search';
 import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
 import PropTypes from 'prop-types';
-import React, {useCallback, useEffect, useState, useRef} from 'react';
+import React, {useCallback, useState, useRef} from 'react';
 import {useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 
 import {GITHUB_REPO} from '../../config';
+import AccountWidget from '../AccountWidget';
 import AppLogo from '../App/AppLogo';
 import constants from '../constants';
 
-const REPORT_BUG_PATH = '//github.com/${GITHUB_REPO}/issues';
+const REPORT_BUG_PATH = `//github.com/${GITHUB_REPO}/issues`;
 
 // create styling for each major subcomponent of Header
 const VerticalAlignToolbar = styled(ToolbarGroup)`
@@ -170,7 +170,7 @@ const MenuButtonWrapper = styled.div`
   margin-right: 12px;
 `;
 
-const LogoGroup = ({ onmenuClick }) => {
+const LogoGroup = ({ onMenuClick }) => (
   <div style={{ marginRight: 16 }}>
     <VerticalAlignToolbar>
       <MenuButtonWrapper>
@@ -183,11 +183,17 @@ const LogoGroup = ({ onmenuClick }) => {
       </AppLogoWrapper>
     </VerticalAlignToolbar>
   </div>
-};
+);
 
 LogoGroup.propTypes = {
   onMenuClick: PropTypes.func,
 };
+
+const AccountGroup = () => (
+  <VerticalAlignToolbar>
+    <AccountWidget />
+  </VerticalAlignToolbar>
+);
 
 const ReportBug = ({ strings }) => (
   <DropdownMenuItem
@@ -205,7 +211,7 @@ ReportBug.propTypes = {
   strings: PropTypes.shape({}),
 };
 
-const LogOut = ({ strings }) => {
+const LogOut = ({ strings }) => (
   <DropdownMenuItem
     component="a"
     href={`${process.env.REACT_APP_API_HOST}/logout`}
@@ -214,13 +220,156 @@ const LogOut = ({ strings }) => {
     <LogOutButton style={{ marginRight: 32, width: 24, height: 24 }} />
     {strings.app_logout}
   </DropdownMenuItem>
-};
+);
 
 LogOut.propTypes = {
   strings: PropTypes.shape({}),
 };
 
 const Header = ({ location, disableSearch }) => {
-  const [Announce, setAnnounce] = useState(null);
+  // set hooks
   const [menuIsOpen, setMenuState] = useState(false);
-}
+
+  // state selectors
+  const small = useSelector((state) => state.browser.greaterThan.small);
+  const user = useSelector((state) => {
+    console.log('header state', state);
+    return state.app.metadata.data.user;
+  });
+  const strings = useSelector((state) => state.app.strings);
+
+  // data encoding navbar
+  const navbarPages = [
+    {
+      key: 'header_matches',
+      to: '/matches',
+      label: strings.header_matches,
+    },
+    {
+      key: 'header_heroes',
+      to: '/heroes',
+      label: strings.header_heroes,
+    },
+    {
+      key: 'header_explorer',
+      to: '/explorer',
+      label: strings.header_explorer,
+    },
+    {
+      key: 'header_combos',
+      to: '/combos',
+      label: strings.combos,
+      feature: '2020 BP',
+    },
+    {
+      key: 'header_api',
+      to: '/api-keys',
+      label: strings.header_api,
+    },
+  ];
+
+  // add some pages revealed by drawer
+  const drawerPages = [
+    ...navbarPages,
+    {
+      key: 'header_distributions',
+      to: '/distributions',
+      label: strings.header_distributions,
+    },
+    {
+      key: 'header_records',
+      to: '/records',
+      label: strings.header_records,
+    },
+    {
+      key: 'header_meta',
+      to: '/meta',
+      label: strings.header_meta,
+    },
+    {
+      key: 'header_scenarios',
+      to: '/scenarios',
+      label: strings.header_scenarios,
+    },
+  ];
+
+  return (
+    <>
+      <ToolbarHeader>
+        {/* logo/settings groups */}
+        <VerticalAlignDiv>
+          <LogoGroup onMenuClick={() => setMenuState(true)} />
+          {small && <LinkGroup navbarPages={navbarPages} />}
+        </VerticalAlignDiv>
+        <VerticalAlignDiv style={{ marginLeft: '16px' }}>
+          {small && <AccountGroup />}
+          <SettingsGroup>
+            <ReportBug strings={strings} />
+            {user ? <LogOut strings={strings} /> : null}
+          </SettingsGroup>
+        </VerticalAlignDiv>
+        {/* drawer */}
+        <SwipeableDrawer
+          onOpen={() => setMenuState(true)}
+          onClose = {() => setMenuState(false)}
+          open = {menuIsOpen}
+        >
+          <MenuContent>
+            <MenuLogoWrapper>
+              <div>
+                <AppLogo onClick={() => setMenuState(false)} />
+              </div>
+            </MenuLogoWrapper>
+            {/* render the drawer links */}
+            <List>
+              {drawerPages.map((page) => (
+                <DrawerLink key={`drawer__${page.to}`} to={page.to}>
+                  <ListItem
+                    button
+                    key={`drawer__${page.to}`}
+                    onClick={() => setMenuState(false)}
+                  >
+                    <ListItemText primary={page.label} />
+                  </ListItem>
+                </DrawerLink>
+              ))}
+            </List>
+            {/* render user links/login links */}
+            <List>
+              {user ? (
+                <>
+                  <DrawerLink to={`/players/${user.account_id}`}>
+                    <ListItem button onClick={() => setMenuState(false)}>
+                      <ListItemText primary={strings.app_my_profile} />
+                    </ListItem>
+                  </DrawerLink>
+                  <DrawerLink
+                    as="a"
+                    href={`${process.env.REACT_APP_API_HOST}/logout`}
+                  >
+                    <ListItem button onClick={() => setMenuState(false)}>
+                      <ListItemText primary={strings.app_logout} />
+                    </ListItem>
+                  </DrawerLink>
+                </>
+              ) : (
+                <>
+                  <DrawerLink
+                    as="a"
+                    href={`${process.env.REACT_APP_API_HOST}/login`}
+                  >
+                    <ListItem button onClick={() => setMenuState(false)}>
+                      <ListItemText primary={strings.app_login} />
+                    </ListItem>
+                  </DrawerLink>
+                </>
+              )}
+            </List>
+          </MenuContent>
+        </SwipeableDrawer>
+      </ToolbarHeader>
+    </>
+  );
+};
+
+export default Header;

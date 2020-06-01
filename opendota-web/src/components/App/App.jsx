@@ -12,6 +12,7 @@ import styled from 'styled-components';
 import constants from '../constants';
 import Home from '../Home';
 import Header from '../Header';
+import FourOhFour from '../FourOhFour';
 
 // helpers
 import GlobalStyle from './GlobalStyle';
@@ -66,6 +67,7 @@ const App = (props) => {
           {/* routing */}
           <Switch>
             <Route exact path = "/" component = {Home} />
+            <Route component={FourOhFour} />
           </Switch>
         </StyledBodyDiv>
       </StyledDiv>

@@ -65,5 +65,22 @@ Console (after adding logs): https://drive.google.com/open?id=1uEkUPRLVljJCCoVJw
 
 ## Header <a name="home"></a>
 
+**Basic header**
+
 1. src/components/App/App.jsx: add the header component to the app shell https://pastebin.com/UZq9evN5, src/components/Header/Header.jsx: write a test Header component https://pastebin.com/v20Y1MTu, src/components/Header/index.js: export Header https://pastebin.com/vvjzWPhc
     1. open up the app, you should see your test header text at the top.
+1. src/components/Header/Header: Write a basic header component https://pastebin.com/P2EW6nCV
+    1. Compile the app, install missing dependencies if it doesn't compile, and see the navbar at the top of the page. It's missing a couple things like the search bar, account widget, and localization menu in settings. It's also missing error pages if you click the dead links on the header. Let's add those.
+
+**Account widget**
+1. src/components/AccountWidget/AccountWidget.jsx: scaffold the account widget button https://pastebin.com/MdYKCNdW. src/components/AccountWidget/index.js: export it https://pastebin.com/UYkQBGrX. Still need to write the error component and login subcomponent https://pastebin.com/8ZpBUVyb
+1. src/components/Error/Error.jsx: write error component, https://pastebin.com/JP49zMTZ, src/components/Error/index.js: export it https://pastebin.com/c39DDL7W
+1. src/components/Error/LoggedIn.jsx: write loggedin subcomponent https://pastebin.com/H9N733kP
+1. src/components/Spinner/Spinner.jsx: Write loading spinner https://pastebin.com/8ZzYZRZY. src/components/Spinner/index.js: export it https://pastebin.com/42qc23JZ.
+1. src/components/Header/Header.jsx: Add the AccountWidget component to the header. https://pastebin.com/vUjPjwEb
+1. Recompile your app, log in, see a 'Your Profile' link on the header. When you click it your page should navigate to your profile page url.
+
+**404 page**
+1. src/components/FourOhFour/FourOhFour.jsx: write the 404 component https://pastebin.com/EyWRc9h0. src/components/FourOhFour/index.js: export FourOhFour https://pastebin.com/8mjQDDeM.
+1. src/components/App/App.jsx: Add 404 route https://pastebin.com/DRqC63RU
+1. Recompile your app, click the header links. Besides the homepage, you should hit the 404 page with a crying face.
